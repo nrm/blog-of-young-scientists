@@ -3,6 +3,14 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from taggit.managers import TaggableManager
+
+class PostManager(models.Model):
+    """docstring for PostManager"""
+    def get_visible(self):
+        """docstring for get_visible"""
+        return self.get_query_set().filter(publish_at__lte=datetime.datetime.now(), active = True)
+
 class TimeStampedActivate(models.Model):
     """docstring for TimeStamp"""
     created = models.DateTimeField(auto_now_add=True)
@@ -41,6 +49,17 @@ class Blogs(TimeStampedActivate):
 class Post(TimeStampedActivate):
     """docstring for post
     A post that belongs to a blog.
+    >>> b = Blogs.objects.get(id=1)
+    >>> p = Post()
+    >>> p.title = 'A Test Post'
+    >>> p.blog = b
+    >>> p.body = "Just a small test"
+    >>> p.slug = 'a-test-post'
+    >>> p.save()
+    >>> print p.blog.name
+    Foo Blog
+    >>> print p.active
+    False
 
     """
     title = models.CharField(max_length=255,
@@ -52,6 +71,8 @@ class Post(TimeStampedActivate):
     publish_at = models.DateTimeField(default=datetime.datetime.now(),
                                      help_text='Date and time post should become visible.')
     blog = models.ForeignKey(Blogs, related_name='posts')
+    tags = TaggableManager()
+    objects = PostManager()
 
     def __unicode__(self):
         return self.title

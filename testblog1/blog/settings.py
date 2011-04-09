@@ -81,6 +81,7 @@ INSTALLED_APPS = (
 
     'south',
 
+    'taggit',
     'blogs',
 )
 
