@@ -5,11 +5,12 @@ from django.contrib.auth.models import User
 
 from taggit.managers import TaggableManager
 
-class PostManager(models.Model):
+class PostManager(models.Manager):
     """docstring for PostManager"""
     def get_visible(self):
         """docstring for get_visible"""
         return self.get_query_set().filter(publish_at__lte=datetime.datetime.now(), active = True)
+        #return self.get_query_set().filter(active=True)
 
 class TimeStampedActivate(models.Model):
     """docstring for TimeStamp"""
@@ -45,6 +46,13 @@ class Blogs(TimeStampedActivate):
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        """docstring for get_absolute_url"""
+        return ('blog', (), {
+            'slug': self.slug
+            })
 
 class Post(TimeStampedActivate):
     """docstring for post

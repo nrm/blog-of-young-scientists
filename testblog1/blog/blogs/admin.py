@@ -12,7 +12,7 @@ class BlogsAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     """docstring for PostAdmin"""
     prepopulated_fields = {"slug": ("title", )}
-    list_display = ('active', 'title', 'excerpt', 'publish_at', 'tags')
+    list_display = ('active', 'title', 'excerpt', 'publish_at')
     list_display_links = ('title',)
     list_editable = ('active', )
     list_filter = ('publish_at', 'modified', 'created', 'active')
