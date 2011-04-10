@@ -1,3 +1,5 @@
 Django==1.2
 South==0.7.3
 distribute==0.6.10
+-e hg+https://bitbucket.org/offline/django-annoying@a0de8b294db368b168dc0e975744da4cb8f7a161#egg=django_annoying-dev
+-e git://github.com/alex/django-taggit.git@36f6dabcf10e27c7d9442a94243d4189f2a4f121#egg=django_taggit-0.9.3

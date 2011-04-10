@@ -10,7 +10,6 @@ class PostManager(models.Manager):
     def get_visible(self):
         """docstring for get_visible"""
         return self.get_query_set().filter(publish_at__lte=datetime.datetime.now(), active = True)
-        #return self.get_query_set().filter(active=True)
 
 class TimeStampedActivate(models.Model):
     """docstring for TimeStamp"""
@@ -22,12 +21,12 @@ class TimeStampedActivate(models.Model):
     class Meta:
         abstract = True
 
-class Blogs(TimeStampedActivate):
+class Blog(TimeStampedActivate):
     """
     A blog belonginm to a user
-    Blogs have multiple posts and one user can have many blogs.
+    Blog have multiple posts and one user can have many blog.
 
-    >>> b = Blogs()
+    >>> b = Blog()
     >>> b.name = 'Foo Blog'
     >>> b.user = User.objects.create(username = 'foo', password='test')
     >>> b.slug = 'foo-blog'
@@ -42,7 +41,7 @@ class Blogs(TimeStampedActivate):
     slug = models.SlugField()
     description = models.TextField(blank=True,
                                   help_text='Describe your blog.')
-    user = models.ForeignKey(User, related_name='blogs')
+    user = models.ForeignKey(User, related_name='blog')
 
     def __unicode__(self):
         return self.name
@@ -57,7 +56,7 @@ class Blogs(TimeStampedActivate):
 class Post(TimeStampedActivate):
     """docstring for post
     A post that belongs to a blog.
-    >>> b = Blogs.objects.get(id=1)
+    >>> b = Blog.objects.get(id=1)
     >>> p = Post()
     >>> p.title = 'A Test Post'
     >>> p.blog = b
@@ -78,12 +77,19 @@ class Post(TimeStampedActivate):
     body = models.TextField()
     publish_at = models.DateTimeField(default=datetime.datetime.now(),
                                      help_text='Date and time post should become visible.')
-    blog = models.ForeignKey(Blogs, related_name='posts')
+    blog = models.ForeignKey(Blog, related_name='posts')
     tags = TaggableManager()
     objects = PostManager()
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('post', (), {
+            'blog': self.blog.slug,
+            'slug': self.slug
+            })
 
     class Meta:
         ordering = [ '-publish_at', '-modified', '-created']

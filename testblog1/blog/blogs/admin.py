@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blogs.models import Blogs, Post
+from blogs.models import Blog, Post
 
 class BlogsAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name", )}
@@ -33,6 +33,6 @@ class PostAdmin(admin.ModelAdmin):
         })
     )
 
-admin.site.register(Blogs, BlogsAdmin)
+admin.site.register(Blog, BlogsAdmin)
 admin.site.register(Post, PostAdmin)
 

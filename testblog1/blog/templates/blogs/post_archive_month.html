@@ -1,0 +1,37 @@
+{% extends 'layouts/site_base.html' %}
+
+{% block page_title %}{{ blog.name }} | {{ block.super }}{% endblock %}
+
+{% block header %}
+<hgroup>
+    <h1>{{ blog.name }}</h1>
+    {% block other_headers %}{% endblock %}
+</hgroup>
+{% endblock %}
+
+{% block main %}
+{{ blog.description|linebreaks }}
+<section>
+    <h2>Posts for {{ month|date:"N, Y" }}</h2>
+    <ul>
+        {% for post in object_list %}
+        <li> 
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            {{ post.publish_at|date }}
+            {{ post.excerpt|linebreaks }}
+        </li>
+        {% endfor %}
+    </ul>
+    <aside>
+        <a href="{% url month blog.slug previous_month|date:"Y" previous_month|date:"m" %}">{{ previous_month|date:"N" }}</a>
+        {% if next_month %}
+            <a href="{% url month blog.slug next_month|date:"Y" next_month|date:"m" %}">{{ next_month|date:"N" }}</a>
+        {% endif %}
+    </aside>
+</section>
+<a href="{% url home %}">Back to blog list</a>
+{% endblock %}
+
+{% block footer %}
+<p>All contents &copy: 2011 {{ object.user }}</p>
+{% endblock %}
