@@ -10,3 +10,7 @@ git config --global user.email "email@example.com"
 git config --global color.diff "auto"
 git config --global color.status "auto"
 git config --global color.branch "auto"
+
+
+#pre install app project
+pip install -r requirements.txt
