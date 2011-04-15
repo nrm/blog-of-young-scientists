@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
+
 from django.views.generic import list_detail
 
 # Uncomment the next two lines to enable the admin:
@@ -28,4 +30,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+
+        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': '/home/bezrukov//Envs/blog-of-young-scientists/test_blog/testblog1/public/media', 'show_indexes': True}),
+        )

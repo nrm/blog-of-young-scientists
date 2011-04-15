@@ -29,7 +29,7 @@
         {% endif %}
     </aside>
 </section>
-<a href="{% url home %}">Back to blog list</a>
+<a href="{{ blog.get_absolute_url }}">Back to post list</a>
 {% endblock %}
 
 {% block footer %}
