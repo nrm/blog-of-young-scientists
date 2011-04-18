@@ -60,10 +60,13 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 ROOT_URLCONF = 'urls'
 
@@ -80,8 +83,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'south',
-
     'taggit',
+    'debug_toolbar',
+
     'blogs',
 )
 
