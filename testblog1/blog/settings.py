@@ -75,6 +75,8 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'django_wysiwyg',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -88,6 +90,9 @@ INSTALLED_APPS = (
 
     'blogs',
 )
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+DJANGO_WYSIWYG_MEDIA_URL = "%s/ckeditor" % MEDIA_ROOT
 
 try:
     from local_settings import *

@@ -11,6 +11,8 @@ class BlogsAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     """docstring for PostAdmin"""
+    change_form_template = 'blogs/change_form.html'
+
     prepopulated_fields = {"slug": ("title", )}
     list_display = ('active', 'title', 'excerpt', 'publish_at')
     list_display_links = ('title',)

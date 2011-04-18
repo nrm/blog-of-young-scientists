@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main %}
-{{ object.body|linebreaks }}
+{{ object.body|safe|linebreaks }}
 <aside>
 {{ object.publish_at }}
     <ul>
@@ -34,5 +34,5 @@
 {% endblock %}
 
 {% block footer %}
-<p>All contents &copy: 2011 {{ object.blog.user }}</p>
+<p>All Qcontents &copy: 2011 {{ object.blog.user }}</p>
 {% endblock %}
